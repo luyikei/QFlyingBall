@@ -9,6 +9,7 @@ GameView::GameView(QWidget *parent) :
     ball->setPos(20,400);
     scene->addItem(ball);
     cannon = new Cannon();
+    scene->addItem(cannon);
 
     cannon->setPos(viewWidth/2,viewHeight-400);
 
@@ -30,7 +31,6 @@ void GameView::moveMissiles()
         if(missile->x() > viewWidth || missile->x() < 0 || missile->y() > viewHeight || missile->y() < 0){
             scene->removeItem(missile);
             missiles.removeAt(i);
-            qDebug() << missiles.size();
             emit decreasePoint(-100);
             continue;
         }

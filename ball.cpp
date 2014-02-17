@@ -5,7 +5,6 @@
 Ball::Ball(QGraphicsItem *parent) :
     QGraphicsEllipseItem(parent),isHit(false),mx(2),my(2),randHeight(300)
 {
-
 }
 
 QRectF Ball::boundingRect() const

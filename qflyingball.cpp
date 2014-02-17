@@ -1,6 +1,5 @@
 #include "qflyingball.h"
 #include "ui_qflyingball.h"
-#include <QMessageBox>
 #include "common.h"
 QFlyingBall::QFlyingBall(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +9,7 @@ QFlyingBall::QFlyingBall(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->gameView,SIGNAL(decreasePoint(int)),this,SLOT(changePoint(int)));
     connect(ui->gameView->ball,SIGNAL(increasePoint(int)),this,SLOT(changePoint(int)));
+
     startTimer(10);
 
 }
