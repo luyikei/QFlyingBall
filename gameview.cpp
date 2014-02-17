@@ -24,19 +24,23 @@ void GameView::launchMissile()
 
 void GameView::moveMissiles()
 {
-    for(int i=0;i<missiles.size();i++){
-        missiles[i]->moveBy(1,-1);
-        if(missiles[i]->x() > viewWidth || missiles[i]->x() < 0 || missiles[i]->y() > viewHeight || missiles[i]->y() < 0){
-            scene->removeItem(missiles[i]);
-            missiles.erase(missiles.begin()+i);
+    int i=0;
+    foreach(QGraphicsEllipseItem *missile,missiles){
+        missile->moveBy(1,-1);
+        if(missile->x() > viewWidth || missile->x() < 0 || missile->y() > viewHeight || missile->y() < 0){
+            scene->removeItem(missile);
+            missiles.removeAt(i);
+            qDebug() << missiles.size();
             emit decreasePoint(-100);
             continue;
         }
 
-        if(qPow(qAbs(ball->x()-missiles[i]->x()),2.0)+qPow(qAbs(ball->y()-missiles[i]->y()),2.0) <=
+        if(qPow(qAbs(ball->x()-missile->x()),2.0)+qPow(qAbs(ball->y()-missile->y()),2.0) <=
                 qPow(ballWidth*2,2.0l)){
             ball->isHit=true;
             ball->update(ball->boundingRect());
         }
+
     }
+    i++;
 }
