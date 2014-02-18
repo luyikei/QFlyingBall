@@ -54,7 +54,7 @@ void Ball::move()
 
 QColor Ball::currentColor()
 {
-    return (isHit)?Qt::blue:Qt::blue;
+    return (isHit)?Qt::red:Qt::darkBlue;
 
 
 }

@@ -1,17 +1,33 @@
 #include "gameview.h"
 #include "common.h"
 GameView::GameView(QWidget *parent) :
-    QGraphicsView(parent)
+    QGraphicsView(parent),
+    mx(1),
+    my(1)
 {
     scene = new QGraphicsScene(this);
     setScene(scene);
+    QPixmap backgroundImage = QPixmap::fromImage(QImage(":/images/sunset.jpg").scaled(viewWidth,viewHeight));
+    scene->addPixmap(backgroundImage);
     ball = new Ball();
     ball->setPos(20,400);
     scene->addItem(ball);
     cannon = new Cannon();
     scene->addItem(cannon);
 
-    cannon->setPos(viewWidth/2,viewHeight-400);
+    cannon->setPos(viewWidth/2,viewHeight-100);
+
+}
+
+void GameView::mousePressEvent(QMouseEvent *e)
+{
+    mx = qCos(qAtan2(e->y()- cannon->y(),e->x()- cannon->x()))*2;
+    my = qSin(qAtan2(e->y()- cannon->y(),e->x()- cannon->x()))*2;
+    launchMissile();
+}
+
+void GameView::mouseMoveEvent(QMouseEvent *e)
+{
 
 }
 
@@ -27,7 +43,7 @@ void GameView::moveMissiles()
 {
     int i=0;
     foreach(QGraphicsEllipseItem *missile,missiles){
-        missile->moveBy(1,-1);
+        missile->moveBy(mx,my);
         if(missile->x() > viewWidth || missile->x() < 0 || missile->y() > viewHeight || missile->y() < 0){
             scene->removeItem(missile);
             missiles.removeAt(i);
@@ -40,7 +56,7 @@ void GameView::moveMissiles()
             ball->isHit=true;
             ball->update(ball->boundingRect());
         }
+        i++;
 
     }
-    i++;
 }
