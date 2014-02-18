@@ -5,6 +5,7 @@ GameView::GameView(QWidget *parent) :
     mx(1),
     my(1)
 {
+    setMouseTracking(true);
     scene = new QGraphicsScene(this);
     setScene(scene);
     QPixmap backgroundImage = QPixmap::fromImage(QImage(":/images/sunset.jpg").scaled(viewWidth,viewHeight));
@@ -21,14 +22,14 @@ GameView::GameView(QWidget *parent) :
 
 void GameView::mousePressEvent(QMouseEvent *e)
 {
-    mx = qCos(qAtan2(e->y()- cannon->y(),e->x()- cannon->x()))*2;
-    my = qSin(qAtan2(e->y()- cannon->y(),e->x()- cannon->x()))*2;
+    mx = qCos(qAtan2(e->y() - cannon->y(),e->x() - cannon->x()))*2;
+    my = qSin(qAtan2(e->y() - cannon->y(),e->x() - cannon->x()))*2;
     launchMissile();
 }
 
 void GameView::mouseMoveEvent(QMouseEvent *e)
 {
-
+    cannon->setRotation(qAtan2(e->y() - cannon->y(),e->x() - cannon->x()) * 180 / 3.1415 + 15);
 }
 
 void GameView::launchMissile()
