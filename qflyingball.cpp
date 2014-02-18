@@ -25,6 +25,7 @@ void QFlyingBall::keyPressEvent(QKeyEvent *k){
     }
 }
 
+
 void QFlyingBall::timerEvent(QTimerEvent *te)
 {
     ui->gameView->ball->move();

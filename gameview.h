@@ -16,8 +16,13 @@ public:
     Cannon *cannon;
     QList<QGraphicsEllipseItem*>missiles;
 
+    void mousePressEvent(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
+
     void launchMissile();
     void moveMissiles();
+    double mx;
+    double my;
 signals:
     void decreasePoint(int point);
 
