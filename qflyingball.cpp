@@ -18,6 +18,7 @@ QFlyingBall::~QFlyingBall()
 {
     delete ui;
 }
+
 void QFlyingBall::keyPressEvent(QKeyEvent *k){
     if(k->key() == Qt::Key_S){
         ui->gameView->launchMissile();
