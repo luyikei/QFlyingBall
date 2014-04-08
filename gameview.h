@@ -21,8 +21,8 @@ public:
 
     void launchMissile();
     void moveMissiles();
-    double mx;
-    double my;
+    double moveByX;
+    double moveByY;
 signals:
     void decreasePoint(int point);
 

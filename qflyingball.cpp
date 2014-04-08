@@ -3,8 +3,8 @@
 #include "common.h"
 QFlyingBall::QFlyingBall(QWidget *parent) :
     QMainWindow(parent),
-    point(0),
-    ui(new Ui::QFlyingBall)
+    ui(new Ui::QFlyingBall),
+    point(0)
 {
     ui->setupUi(this);
     connect(ui->gameView,SIGNAL(decreasePoint(int)),this,SLOT(changePoint(int)));
@@ -19,7 +19,8 @@ QFlyingBall::~QFlyingBall()
     delete ui;
 }
 
-void QFlyingBall::keyPressEvent(QKeyEvent *k){
+void QFlyingBall::keyPressEvent(QKeyEvent *k)
+{
     if(k->key() == Qt::Key_S){
         ui->gameView->launchMissile();
 
@@ -29,6 +30,7 @@ void QFlyingBall::keyPressEvent(QKeyEvent *k){
 
 void QFlyingBall::timerEvent(QTimerEvent *te)
 {
+    Q_UNUSED(te);
     ui->gameView->ball->move();
     ui->gameView->moveMissiles();
 

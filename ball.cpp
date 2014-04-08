@@ -3,48 +3,57 @@
 
 #include <QtGui>
 Ball::Ball(QGraphicsItem *parent) :
-    QGraphicsEllipseItem(parent),isHit(false),mx(2),my(2),randHeight(300)
+    QGraphicsEllipseItem(parent),
+    mx(2),
+    my(2),
+    randHeight(300),
+    m_isHit(false)
 {
 }
 
 QRectF Ball::boundingRect() const
 {
-    return QRectF(-(ballWidth/2),-(ballHeight/2),ballWidth,ballHeight);
+    return centerPosition(ballWidth,ballHeight);
 }
 
 QPointF Ball::calculateNewPos(int x)
 {
-    double nx=x+mx,ny;
+    double newX=x+mx,newY;
     double midw=viewWidth/2;
-    ny=(nx-midw)*(nx-midw)/randHeight;
-    if(nx > viewWidth || nx < 0 || ny > viewHeight || ny < 0){
+
+    newY=(newX-midw)*(newX-midw)/randHeight;
+
+    if(isNotPositionIn(newX, newY, viewWidth, viewHeight, newY)) {
         randHeight=(qrand()%500)+100;
         setBrush(Qt::blue);
-        if(isHit){
+
+        if(isHit()){
             emit increasePoint(300);
-            isHit=false;
+            setHit(false);
         }
-        return QPointF(20,ny);
+        //Rest Position
+        return QPointF(20,newY);
 
     }
-    return QPointF(nx,ny);
+    return QPointF(newX,newY);
 }
 
 void Ball::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-     QRectF rect = boundingRect();
-     QPen pen(currentColor());
-     QBrush brush(currentColor());
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 
-     painter->setPen(pen);
-     painter->setBrush(brush);
-     painter->drawEllipse(rect);
+    QRectF rect = boundingRect();
+    QPen pen(currentColor());
+    QBrush brush(currentColor());
 
+    painter->setPen(pen);
+    painter->setBrush(brush);
+    painter->drawEllipse(rect);
 }
 
 void Ball::move()
 {
-
     QPropertyAnimation* anim = new QPropertyAnimation(this, "pos");
     anim->setDuration(10);
     anim->setStartValue(pos());
@@ -54,7 +63,5 @@ void Ball::move()
 
 QColor Ball::currentColor()
 {
-    return (isHit)?Qt::red:Qt::darkBlue;
-
-
+    return (isHit())?Qt::red:Qt::darkBlue;
 }

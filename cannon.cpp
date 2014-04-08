@@ -1,8 +1,8 @@
 #include "cannon.h"
 #include "common.h"
 Cannon::Cannon(QGraphicsItem *parent) :
-    cannonIcon(":/images/cannon.png"),
-    QGraphicsItem(parent)
+    QGraphicsItem(parent),
+    cannonIcon(":/images/cannon.png")
 {
     setRotation(-30);
 }
@@ -14,6 +14,9 @@ QRectF Cannon::boundingRect() const
 
 void Cannon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
     painter->drawImage(boundingRect().toRect(),cannonIcon);
 }
 
