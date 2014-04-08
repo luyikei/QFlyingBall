@@ -16,8 +16,8 @@ public:
     Cannon *cannon;
     QList<QGraphicsEllipseItem*>missiles;
 
-    void mousePressEvent(QMouseEvent *e);
-    void mouseMoveEvent(QMouseEvent *e);
+    virtual void mousePressEvent(QMouseEvent *e);
+    virtual void mouseMoveEvent(QMouseEvent *e);
 
     void launchMissile();
     void moveMissiles();
