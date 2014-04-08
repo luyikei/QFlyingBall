@@ -4,8 +4,8 @@
 #include <QtGui>
 Ball::Ball(QGraphicsItem *parent) :
     QGraphicsEllipseItem(parent),
-    mx(2),
-    my(2),
+    moveByX(2),
+    moveByY(2),
     randHeight(300),
     m_isHit(false)
 {
@@ -18,12 +18,12 @@ QRectF Ball::boundingRect() const
 
 QPointF Ball::calculateNewPos(int x)
 {
-    double newX=x+mx,newY;
+    double newX=x+moveByX,newY;
     double midw=viewWidth/2;
 
     newY=(newX-midw)*(newX-midw)/randHeight;
 
-    if(isNotPositionIn(newX, newY, viewWidth, viewHeight, newY)) {
+    if(isNotPositionIn(newX, newY, viewWidth, viewHeight)) {
         randHeight=(qrand()%500)+100;
         setBrush(Qt::blue);
 

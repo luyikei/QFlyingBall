@@ -35,8 +35,8 @@ public slots:
 
 private:
 
-    int mx;
-    int my;
+    int moveByX;
+    int moveByY;
     int randHeight;
 
     QColor currentColor();
